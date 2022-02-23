@@ -101,9 +101,12 @@ class PostController extends Controller
     {
         $form_data = $request->all();
         $request->validate($this->getValidationRules());
-        $form_data['slug'] = $this->getUniqueSlugFromTitle($form_data['title']);
-
         $post = Post::findOrFail($id);
+
+        if($form_data['title'] != $post->title) {
+            $form_data['slug'] = $this->getUniqueSlugFromTitle($form_data['title']);
+        }
+
         $post->update($form_data);
 
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
@@ -117,7 +120,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return redirect()->route('admin.posts.index');
     }
 
     protected function getValidationRules() {
