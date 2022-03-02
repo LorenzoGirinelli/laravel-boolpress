@@ -1,11 +1,16 @@
 <template>
-    <h1>ciao sono vue</h1>
+    <div>
+        <Posts />
+    </div>
 </template>
 
 <script>
-import WorkInProgress from '../components/WorkInProgress.vue';
+import Posts from '../components/Posts.vue';
 
 export default {
-    name: 'App'
+    name: 'App',
+    components: {
+        Posts
+    }
 }
-</script>i
+</script>
