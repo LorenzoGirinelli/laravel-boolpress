@@ -6,6 +6,8 @@
 
         <div class="mb-2"><strong>Slug:</strong> {{ $post->slug }}</div>
 
+        <div class="mb-2"><strong>Categoria:</strong> {{ $post->category ? $post->category->name : 'nessuna' }}</div>
+
         <p>{{ $post->content }}</p>
 
         <div>
