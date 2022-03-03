@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use App\Tag;
 use Illuminate\Support\Str;
 use App\Category;
 
@@ -34,9 +35,11 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
         $data = [
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags
         ];
 
         return view('admin.posts.create', $data);
@@ -59,6 +62,10 @@ class PostController extends Controller
         $new_post->slug = Post::getUniqueSlugFromTitle($form_data['title']);
 
         $new_post->save();
+
+        if(isset($form_data['tags'])) {
+            $new_post->tags()->sync($form_data['tags']);
+        }
 
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
@@ -90,10 +97,12 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         $categories = Category::all();
+        $tags = Tag::all();
 
         $data = [
             'post' => $post,
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags
         ];
 
         return view('admin.posts.edit', $data);
@@ -117,6 +126,15 @@ class PostController extends Controller
         }
 
         $post->update($form_data);
+
+        if(isset($form_data['tags'])) {
+            $post->tags()->sync($form_data['tags']);
+        } else {
+            // Se non esiste la chiave tags in form_data
+            // significa che l'utente a rimosso il check da tutti i tag
+            // quindi se questo post aveva dei tag collegati li rimuovo
+            $post->tags()->sync([]);
+        }
 
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
