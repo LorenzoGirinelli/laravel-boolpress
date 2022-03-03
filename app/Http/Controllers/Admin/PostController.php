@@ -49,7 +49,7 @@ class PostController extends Controller
         $new_post = new Post();
         $new_post->fill($form_data);
 
-        $new_post->slug = $this->getUniqueSlugFromTitle($form_data['title']);
+        $new_post->slug = Post::getUniqueSlugFromTitle($form_data['title']);
 
         $new_post->save();
 
@@ -104,7 +104,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         if($form_data['title'] != $post->title) {
-            $form_data['slug'] = $this->getUniqueSlugFromTitle($form_data['title']);
+            $form_data['slug'] = Post::getUniqueSlugFromTitle($form_data['title']);
         }
 
         $post->update($form_data);

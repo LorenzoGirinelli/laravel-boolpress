@@ -13,7 +13,16 @@ export default {
         };
     },
     methods: {
-        
+        getPosts: function() {
+            // Faremo la chiamata API per prenderci i post
+            axios.get('/api/posts')
+            .then((response) => {
+                this.posts = response.data.results;
+            });
+        }
+    },
+    created: function() {
+        this.getPosts();
     }
 }
 </script> 
