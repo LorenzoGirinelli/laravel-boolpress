@@ -56,7 +56,9 @@ class PostController extends Controller
         $form_data = $request->all();
 
         $request->validate($this->getValidationRules());
+
         $new_post = new Post();
+        
         $new_post->fill($form_data);
 
         $new_post->slug = Post::getUniqueSlugFromTitle($form_data['title']);
@@ -148,6 +150,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
+        $post->tags()->sync([]);
         $post->delete();
 
         return redirect()->route('admin.posts.index');
@@ -157,7 +160,8 @@ class PostController extends Controller
         return [
             'title' => 'required|max:255',
             'content' => 'required|max:60000',
-            'category_id' => 'exists:categories,id|nullable'
+            'category_id' => 'exists:categories,id|nullable',
+            'tags' => 'exists:tags,id'
         ];
     }
 
