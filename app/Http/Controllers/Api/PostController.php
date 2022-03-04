@@ -11,7 +11,7 @@ class PostController extends Controller
     // Metodo per ritornare tutti i post
     public function index() {
         // Prendo tutti i post dal database
-        $posts = Post::all();
+        $posts = Post::paginate(6);
 
         // Devo convertire la collection di post in json (array di oggetti) per poterla ritornare
         return response()->json([

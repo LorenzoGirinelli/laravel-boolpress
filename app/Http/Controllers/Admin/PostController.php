@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(6);
 
         $data = [
             'posts' => $posts
@@ -58,7 +58,7 @@ class PostController extends Controller
         $request->validate($this->getValidationRules());
 
         $new_post = new Post();
-        
+
         $new_post->fill($form_data);
 
         $new_post->slug = Post::getUniqueSlugFromTitle($form_data['title']);
