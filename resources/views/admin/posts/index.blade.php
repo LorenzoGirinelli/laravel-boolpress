@@ -16,11 +16,11 @@
                             </div>
                         </div>
                     </div>
-                    {{-- End Single post --}}
-
-                    {{ $posts->links() }}
+                    {{-- End Single post --}}   
                     
                 @endforeach
+
+                {{ $posts->links() }}
             </div>
     </section>
 @endsection 
