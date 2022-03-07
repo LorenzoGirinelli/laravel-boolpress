@@ -1,22 +1,18 @@
 <template>
     <div>
         <Newsletter />
-        <section>
-            <div class="container">
-                <h1>Ciao sono la homepage</h1>
-            </div>
-        </section>
+        <Posts />
     </div>
 </template>
 
 <script>
-
 import Newsletter from '../components/Newsletter.vue';
-
+import Posts from '../components/Posts.vue';
 export default {
-    name: 'Home',
+    name: 'LatestNews',
     components: {
-        Newsletter
+        Newsletter,
+        Posts
     }
 }
 </script> 

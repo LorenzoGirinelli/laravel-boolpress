@@ -32,6 +32,14 @@ export default {
                     name: 'about',
                     label: 'About'
                 },
+                {
+                    name: 'blog',
+                    label: 'Blog'
+                },
+                {
+                    name: 'latest-news',
+                    label: 'Latest News'
+                },
             ],
         };
     }
